@@ -1,1 +1,1 @@
-window.ALL_CRATES = ["ft_matrix","num","num_bigint","num_complex","num_integer","num_iter","num_rational","num_traits"];
+window.ALL_CRATES = ["matrix","num","num_bigint","num_complex","num_integer","num_iter","num_rational","num_traits"];
