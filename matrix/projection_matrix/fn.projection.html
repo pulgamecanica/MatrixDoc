@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Generates a 4x4 perspective projection matrix for a 3D rendering pipeline."><title>projection in matrix::projection_matrix - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-c5d6553a23f1e5a6.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="matrix" data-themes="" data-resource-suffix="" data-rustdoc-version="1.81.0 (eeb90cda1 2024-09-04)" data-channel="1.81.0" data-search-js="search-d234aafac6c221dd.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-d2fab2bf619172d3.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc fn"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../matrix/index.html">matrix</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"><h2><a href="index.html">In matrix::projection_matrix</a></h2></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Function <a href="../index.html">matrix</a>::<wbr><a href="index.html">projection_matrix</a>::<wbr><a class="fn" href="#">projection</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../../src/matrix/projection_matrix.rs.html#92-108">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><code>pub fn projection(fov: <a class="primitive" href="https://doc.rust-lang.org/1.81.0/std/primitive.f32.html">f32</a>, ratio: <a class="primitive" href="https://doc.rust-lang.org/1.81.0/std/primitive.f32.html">f32</a>, near: <a class="primitive" href="https://doc.rust-lang.org/1.81.0/std/primitive.f32.html">f32</a>, far: <a class="primitive" href="https://doc.rust-lang.org/1.81.0/std/primitive.f32.html">f32</a>) -&gt; <a class="struct" href="../matrix/struct.Matrix.html" title="struct matrix::matrix::Matrix">Matrix</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/1.81.0/std/primitive.f32.html">f32</a>&gt;</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Generates a 4x4 perspective projection matrix for a 3D rendering pipeline.</p>
+<p>In 3D graphics, a projection matrix transforms 3D points in camera space to 2D points on the screen.
+This transformation applies a perspective effect, making objects farther from the camera appear smaller.
+This matrix is a core part of rendering, mapping a 3D scene into a 2D representation.</p>
+<h2 id="parameters"><a class="doc-anchor" href="#parameters">§</a>Parameters</h2>
+<ul>
+<li>
+<p><code>fov</code>: Field of View (in radians).</p>
+<ul>
+<li>Represents the vertical angle of the camera’s viewing cone. A larger FOV results in a wider view of the scene.</li>
+<li>It should be given in <strong>radians</strong> (for example, 1.57 radians is approximately 90 degrees).</li>
+<li>The half-angle tangent is used to determine the extent of scaling for the perspective effect.</li>
+</ul>
+</li>
+<li>
+<p><code>ratio</code>: Aspect ratio of the view window, calculated as <code>width / height</code>.</p>
+<ul>
+<li>Determines the horizontal stretch of the view window.</li>
+<li>Common values include 4:3 (1.33), 16:9 (1.78), etc.</li>
+<li>This value adjusts the x-axis scale to prevent distortion caused by non-square aspect ratios.</li>
+</ul>
+</li>
+<li>
+<p><code>near</code>: Near clipping plane distance.</p>
+<ul>
+<li>This represents the distance to the nearest visible depth from the camera.</li>
+<li>Any points closer than this distance are clipped and not rendered.</li>
+<li>Must be a positive, non-zero value.</li>
+</ul>
+</li>
+<li>
+<p><code>far</code>: Far clipping plane distance.</p>
+<ul>
+<li>Represents the farthest visible distance in the scene.</li>
+<li>Any points beyond this distance are clipped and not rendered.</li>
+<li>Should be larger than <code>near</code> to ensure a positive depth range.</li>
+</ul>
+</li>
+</ul>
+<h2 id="projection-matrix-structure"><a class="doc-anchor" href="#projection-matrix-structure">§</a>Projection Matrix Structure</h2>
+<p>The perspective projection matrix generated has the form:</p>
+<p><a href="https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/opengl-perspective-projection-matrix.html">See formula here</a></p>
+<div class="example-wrap"><pre class="language-text"><code>P = 
+[
+    a    0    0    0
+    0    b    0    0
+    0    0    c    d
+    0    0   -1    0
+]
+</code></pre></div>
+<p>Where:</p>
+<ul>
+<li><code>a = 1 / (tan(fov / 2) * ratio)</code></li>
+<li><code>b = 1 / tan(fov / 2)</code></li>
+<li><code>c = -(far + near) / (far - near)</code></li>
+<li><code>d = -(2 * far * near) / (far - near)</code></li>
+</ul>
+<p>This matrix serves the following roles:</p>
+<ol>
+<li>
+<p><strong>Perspective Scaling</strong>: The values <code>a</code> and <code>b</code> scale the x and y coordinates, respectively, to create the perspective effect.</p>
+<ul>
+<li><code>a</code> scales by the reciprocal of the half-angle tangent, adjusted by the aspect ratio.</li>
+<li><code>b</code> scales by the reciprocal of the half-angle tangent for the y-axis.</li>
+</ul>
+</li>
+<li>
+<p><strong>Depth Mapping</strong>: The values <code>c</code> and <code>d</code> map the <code>near</code> and <code>far</code> planes to a normalized depth range.</p>
+<ul>
+<li><code>c</code> and <code>d</code> control the depth scaling, mapping the range <code>[near, far]</code> to <code>[-1, 1]</code> in normalized device coordinates.</li>
+</ul>
+</li>
+<li>
+<p><strong>Homogeneous Coordinate Adjustment</strong>: The matrix’s fourth row, <code>[0, 0, -1, 0]</code>, adjusts the homogeneous coordinates
+to handle the perspective division, which converts the 3D coordinates to 2D screen space.</p>
+</li>
+</ol>
+<h2 id="example"><a class="doc-anchor" href="#example">§</a>Example</h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>matrix::Matrix;
+<span class="kw">use </span>matrix::projection_matrix::projection;
+ 
+<span class="kw">let </span>fov = <span class="number">1.57</span>; <span class="comment">// Field of view in radians (~90 degrees)
+</span><span class="kw">let </span>ratio = <span class="number">16.0 </span>/ <span class="number">9.0</span>; <span class="comment">// Aspect ratio of 16:9 for widescreen
+</span><span class="kw">let </span>near = <span class="number">0.1</span>; <span class="comment">// Near clipping plane at 0.1 units
+</span><span class="kw">let </span>far = <span class="number">100.0</span>; <span class="comment">// Far clipping plane at 100 units
+
+</span><span class="kw">let </span>projection_matrix: Matrix&lt;f32&gt; = projection(fov, ratio, near, far);
+
+<span class="comment">// Resulting matrix can be used in rendering pipelines
+</span><span class="macro">println!</span>(<span class="string">"{}"</span>, projection_matrix); <span class="comment">// Displays the matrix</span></code></pre></div>
+<h2 id="returns"><a class="doc-anchor" href="#returns">§</a>Returns</h2>
+<p>Returns a new <code>4x4</code> matrix in <code>Matrix&lt;f32&gt;</code> representing the perspective projection.
+This matrix can be used in 3D rendering to transform points from camera space to screen space.</p>
+<h2 id="panics"><a class="doc-anchor" href="#panics">§</a>Panics</h2>
+<p>Panics if <code>near</code> is zero or negative, as the near plane must be positive and non-zero.
+A <code>near</code> value of zero would lead to division by zero in the depth mapping.</p>
+</div></details></section></div></main></body></html>

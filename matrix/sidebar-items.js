@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["linear_interpolation","matrix","scalar","vector"]};
+window.SIDEBAR_ITEMS = {"mod":["linear_interpolation","matrix","projection_matrix","scalar","vector"]};

@@ -22,6 +22,10 @@
 <a href="#22" id="22">22</a>
 <a href="#23" id="23">23</a>
 <a href="#24" id="24">24</a>
+<a href="#25" id="25">25</a>
+<a href="#26" id="26">26</a>
+<a href="#27" id="27">27</a>
+<a href="#28" id="28">28</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! # Vector and Matrix Library
 //! 
 //! This library provides functionality for working with vectors and matrices. 
@@ -37,13 +41,17 @@
 <span class="doccomment">/// The matrix module provides a generic `Matrix` struct and related methods.
 </span><span class="kw">pub mod </span>matrix;
 
-
 <span class="doccomment">/// The linear interpolation module provides a generic function implementation to apply an interpolation.
 </span><span class="kw">pub mod </span>linear_interpolation;
+
+<span class="doccomment">/// The projection matrix module provides a function to generate projection matrices.
+</span><span class="kw">pub mod </span>projection_matrix;
 
 <span class="comment">// Optionally, re-export types to make them easier to access from the top level.
 </span><span class="kw">pub use </span>vector::Vector;
 <span class="kw">pub use </span>matrix::Matrix;
 <span class="kw">pub use </span>scalar::Scalar;
+<span class="kw">pub use </span>linear_interpolation::lerp;
+<span class="kw">pub use </span>projection_matrix::projection;
 
 </code></pre></div></section></main></body></html>

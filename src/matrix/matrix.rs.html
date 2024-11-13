@@ -1913,6 +1913,59 @@
 <a href="#1913" id="1913">1913</a>
 <a href="#1914" id="1914">1914</a>
 <a href="#1915" id="1915">1915</a>
+<a href="#1916" id="1916">1916</a>
+<a href="#1917" id="1917">1917</a>
+<a href="#1918" id="1918">1918</a>
+<a href="#1919" id="1919">1919</a>
+<a href="#1920" id="1920">1920</a>
+<a href="#1921" id="1921">1921</a>
+<a href="#1922" id="1922">1922</a>
+<a href="#1923" id="1923">1923</a>
+<a href="#1924" id="1924">1924</a>
+<a href="#1925" id="1925">1925</a>
+<a href="#1926" id="1926">1926</a>
+<a href="#1927" id="1927">1927</a>
+<a href="#1928" id="1928">1928</a>
+<a href="#1929" id="1929">1929</a>
+<a href="#1930" id="1930">1930</a>
+<a href="#1931" id="1931">1931</a>
+<a href="#1932" id="1932">1932</a>
+<a href="#1933" id="1933">1933</a>
+<a href="#1934" id="1934">1934</a>
+<a href="#1935" id="1935">1935</a>
+<a href="#1936" id="1936">1936</a>
+<a href="#1937" id="1937">1937</a>
+<a href="#1938" id="1938">1938</a>
+<a href="#1939" id="1939">1939</a>
+<a href="#1940" id="1940">1940</a>
+<a href="#1941" id="1941">1941</a>
+<a href="#1942" id="1942">1942</a>
+<a href="#1943" id="1943">1943</a>
+<a href="#1944" id="1944">1944</a>
+<a href="#1945" id="1945">1945</a>
+<a href="#1946" id="1946">1946</a>
+<a href="#1947" id="1947">1947</a>
+<a href="#1948" id="1948">1948</a>
+<a href="#1949" id="1949">1949</a>
+<a href="#1950" id="1950">1950</a>
+<a href="#1951" id="1951">1951</a>
+<a href="#1952" id="1952">1952</a>
+<a href="#1953" id="1953">1953</a>
+<a href="#1954" id="1954">1954</a>
+<a href="#1955" id="1955">1955</a>
+<a href="#1956" id="1956">1956</a>
+<a href="#1957" id="1957">1957</a>
+<a href="#1958" id="1958">1958</a>
+<a href="#1959" id="1959">1959</a>
+<a href="#1960" id="1960">1960</a>
+<a href="#1961" id="1961">1961</a>
+<a href="#1962" id="1962">1962</a>
+<a href="#1963" id="1963">1963</a>
+<a href="#1964" id="1964">1964</a>
+<a href="#1965" id="1965">1965</a>
+<a href="#1966" id="1966">1966</a>
+<a href="#1967" id="1967">1967</a>
+<a href="#1968" id="1968">1968</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::scalar::Scalar;
 <span class="kw">use </span><span class="kw">crate</span>::Vector;
 <span class="kw">use </span>std::fmt;
@@ -3017,6 +3070,48 @@
         <span class="prelude-val">Ok</span>(Matrix::new(inverse_data))
     }
 
+
+    <span class="doccomment">/// Computes the rank of a matrix using row echlon method.
+    ///
+    /// The rank of a matrix is equal to the number of linearly independent rows in it. Hence, it cannot be more than its number of rows and columns.
+    /// The best rank a matrix can have is equal to the number of rows.
+    ///
+    /// ## Steps to Calculate the rank
+    ///
+    /// 1. **Compute the reduced row echlon** matrix.
+    /// 2. **Count all the linear independent rows** that is the non zero rows.
+    /// 3. The number of rows counted is the rank..
+    ///
+    /// # Panics
+    ///
+    /// - Panics if the matrix is not rectangular, cannot compute row echlon of non rectangular matrices.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use matrix::Matrix;
+    ///
+    /// let mat = Matrix::new(vec![
+    ///     vec![4.0, 7.0],
+    ///     vec![2.0, 6.0],
+    ///     vec![2.0, 6.0],
+    /// ]);
+    ///
+    /// assert_eq!(mat.rank(), 2);
+    /// ```
+    </span><span class="kw">pub fn </span>rank(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; usize {
+        <span class="kw">let </span>echlon_mat = <span class="self">self</span>.row_echelon();
+        <span class="kw">let </span>rows = echlon_mat.rows();
+        <span class="kw">let </span>cols = echlon_mat.cols();
+        <span class="kw">let </span><span class="kw-2">mut </span>rank: usize = <span class="number">0</span>;
+
+        <span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..rows {
+            <span class="kw">if </span>echlon_mat.data[i] != <span class="macro">vec!</span>[K::zero(); cols] {
+                rank += <span class="number">1</span>;
+            }
+        }
+        rank
+    }
 }
 
 <span class="kw">impl</span>&lt;K: Scalar&gt; PartialEq <span class="kw">for </span>Matrix&lt;K&gt;
@@ -3826,6 +3921,17 @@
         ]);
 
         non_square_matrix.inverse().unwrap();
+    }
+
+    <span class="attr">#[test]
+    </span><span class="kw">fn </span>test_rank_4x2() {
+        <span class="kw">let </span>rectangular_mat = Matrix::new(<span class="macro">vec!</span>[
+            <span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],
+            <span class="macro">vec!</span>[<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>],
+            <span class="macro">vec!</span>[<span class="number">3</span>, <span class="number">4</span>, <span class="number">7</span>],
+            <span class="macro">vec!</span>[<span class="number">4</span>, <span class="number">5</span>, <span class="number">9</span>],
+        ]);
+        <span class="macro">assert_eq!</span>(rectangular_mat.rank(), <span class="number">2</span>);
     }
 }
 </code></pre></div></section></main></body></html>

@@ -1,5 +1,5 @@
 var srcIndex = new Map(JSON.parse('[\
-["matrix",["",[],["lib.rs","linear_interpolation.rs","matrix.rs","scalar.rs","vector.rs"]]],\
+["matrix",["",[],["lib.rs","linear_interpolation.rs","matrix.rs","projection_matrix.rs","scalar.rs","vector.rs"]]],\
 ["num",["",[],["lib.rs"]]],\
 ["num_bigint",["",[["bigint",[],["addition.rs","bits.rs","convert.rs","division.rs","multiplication.rs","power.rs","shift.rs","subtraction.rs"]],["biguint",[],["addition.rs","bits.rs","convert.rs","division.rs","iter.rs","monty.rs","multiplication.rs","power.rs","shift.rs","subtraction.rs"]]],["bigint.rs","biguint.rs","lib.rs","macros.rs"]]],\
 ["num_complex",["",[],["cast.rs","complex_float.rs","lib.rs","pow.rs"]]],\
