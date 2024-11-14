@@ -26,6 +26,10 @@
 <a href="#26" id="26">26</a>
 <a href="#27" id="27">27</a>
 <a href="#28" id="28">28</a>
+<a href="#29" id="29">29</a>
+<a href="#30" id="30">30</a>
+<a href="#31" id="31">31</a>
+<a href="#32" id="32">32</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! # Vector and Matrix Library
 //! 
 //! This library provides functionality for working with vectors and matrices. 
@@ -41,6 +45,9 @@
 <span class="doccomment">/// The matrix module provides a generic `Matrix` struct and related methods.
 </span><span class="kw">pub mod </span>matrix;
 
+<span class="doccomment">/// The complex module provides a representation of Complex Numbers which implements Scalar.
+</span><span class="kw">pub mod </span>complex;
+
 <span class="doccomment">/// The linear interpolation module provides a generic function implementation to apply an interpolation.
 </span><span class="kw">pub mod </span>linear_interpolation;
 
@@ -51,6 +58,7 @@
 </span><span class="kw">pub use </span>vector::Vector;
 <span class="kw">pub use </span>matrix::Matrix;
 <span class="kw">pub use </span>scalar::Scalar;
+<span class="kw">pub use </span>complex::Complex;
 <span class="kw">pub use </span>linear_interpolation::lerp;
 <span class="kw">pub use </span>projection_matrix::projection;
 

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":["linear_interpolation","matrix","scalar","vector"]};

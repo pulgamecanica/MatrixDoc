@@ -2607,7 +2607,7 @@
             <span class="comment">// Find the row with the largest pivot in the current column
             </span><span class="kw">let </span><span class="kw-2">mut </span>max_row = row;
             <span class="kw">for </span>i <span class="kw">in </span>(row + <span class="number">1</span>)..rows {
-                <span class="kw">if </span>result.data[i][col].abs() &gt; result.data[max_row][col].abs() {
+                <span class="kw">if </span>result.data[i][col].to_f32().abs() &gt; result.data[max_row][col].to_f32().abs() {
                     max_row = i;
                 }
             }
